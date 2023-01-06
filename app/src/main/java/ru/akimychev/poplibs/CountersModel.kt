@@ -2,7 +2,7 @@ package ru.akimychev.poplibs
 
 class CountersModel {
 
-    private val counters = mutableListOf(0, 0, 0)
+    private val counters = mutableListOf(1, 1, 1)
 
     fun getCurrent(position: Int): Int {
         return counters[position]

@@ -2,5 +2,7 @@ package ru.akimychev.poplibs
 
 interface MainView {
 
-    fun setText(counter: String, position: Int)
+    fun setTextForBoom(counter: String)
+    fun setTextForBoomOne(counter: String)
+    fun setTextForBoomTwo(counter: String)
 }

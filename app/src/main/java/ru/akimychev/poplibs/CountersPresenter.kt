@@ -6,17 +6,17 @@ class CountersPresenter(private val view: MainView) {
 
     fun onCounterClick(id: Int){
         when(id){
-            R.id.btnBoom ->{
+            0 ->{
                 val newValue = model.next(0)
-                view.setText(newValue.toString(), 0)
+                view.setTextForBoom(newValue.toString())
             }
-            R.id.btnBoom1 ->{
+            1 ->{
                 val newValue = model.next(1)
-                view.setText(newValue.toString(), 1)
+                view.setTextForBoomOne(newValue.toString())
             }
-            R.id.btnBoom2 ->{
+            2 ->{
                 val newValue = model.next(2)
-                view.setText(newValue.toString(), 2)
+                view.setTextForBoomTwo(newValue.toString())
             }
         }
     }

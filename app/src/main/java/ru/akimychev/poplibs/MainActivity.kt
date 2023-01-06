@@ -18,13 +18,13 @@ class MainActivity : AppCompatActivity(), MainView {
 
         with(binding) {
             btnBoom.setOnClickListener {
-                presenter.onCounterClick(R.id.btnBoom)
+                presenter.onCounterClick(0)
             }
-            btnBoom1.setOnClickListener {
-                presenter.onCounterClick(R.id.btnBoom1)
+            btnBoomOne.setOnClickListener {
+                presenter.onCounterClick(1)
             }
-            btnBoom2.setOnClickListener {
-                presenter.onCounterClick(R.id.btnBoom2)
+            btnBoomTwo.setOnClickListener {
+                presenter.onCounterClick(2)
             }
         }
     }
@@ -33,13 +33,15 @@ class MainActivity : AppCompatActivity(), MainView {
         presenter = CountersPresenter(this)
     }
 
-    override fun setText(counter: String, position: Int) {
-        with(binding) {
-            when (position) {
-                0 -> tvText.text = counter
-                1 -> tvText1.text = counter
-                2 -> tvText2.text = counter
-            }
-        }
+    override fun setTextForBoom(counter: String) {
+        binding.tvText.text = counter
+    }
+
+    override fun setTextForBoomOne(counter: String) {
+        binding.tvText1.text = counter
+    }
+
+    override fun setTextForBoomTwo(counter: String) {
+        binding.tvText2.text = counter
     }
 }
