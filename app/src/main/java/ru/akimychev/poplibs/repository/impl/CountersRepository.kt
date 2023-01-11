@@ -1,6 +1,6 @@
-package ru.akimychev.poplibs
+package ru.akimychev.poplibs.repository.impl
 
-class CountersModel {
+class CountersRepository {
 
     private val counters = mutableListOf(1, 1, 1)
 
