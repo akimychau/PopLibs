@@ -1,9 +1,9 @@
 package ru.akimychev.poplibs.repository.impl
 
 import ru.akimychev.poplibs.model.GithubUser
-import ru.akimychev.poplibs.repository.GithubRepository
+import ru.akimychev.poplibs.repository.UserListRepository
 
-class GithubRepositoryImpl : GithubRepository {
+class UserListRepositoryImpl : UserListRepository {
 
     private val repositories = listOf(
         GithubUser("Cat"),

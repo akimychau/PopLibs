@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.akimychev.poplibs.R
+import ru.akimychev.poplibs.details.OnItemClick
 import ru.akimychev.poplibs.model.GithubUser
 
-class UserAdapter : RecyclerView.Adapter<GithubUserViewHolder>() {
+class UserAdapter(private val callback: OnItemClick) :
+    RecyclerView.Adapter<UserAdapter.GithubUserViewHolder>() {
 
     var users: List<GithubUser> = emptyList()
         @SuppressLint("NotifyDataSetChanged")
@@ -28,13 +30,17 @@ class UserAdapter : RecyclerView.Adapter<GithubUserViewHolder>() {
     }
 
     override fun getItemCount() = users.size
-}
 
-class GithubUserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class GithubUserViewHolder(itemView: View) :
+        RecyclerView.ViewHolder(itemView) {
 
-    private val tvLogin by lazy { itemView.findViewById<TextView>(R.id.userLogin) }
+        private val tvLogin by lazy { itemView.findViewById<TextView>(R.id.userLogin) }
 
-    fun bind(item: GithubUser) {
-        tvLogin.text = item.login
+        fun bind(item: GithubUser) {
+            tvLogin.text = item.login
+            tvLogin.setOnClickListener {
+                callback.onItemClick(item)
+            }
+        }
     }
 }

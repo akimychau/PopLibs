@@ -1,4 +1,4 @@
-package ru.akimychev.poplibs.user
+package ru.akimychev.poplibs.list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,24 +10,27 @@ import moxy.ktx.moxyPresenter
 import ru.akimychev.poplibs.GeekBrainsApp
 import ru.akimychev.poplibs.core.BackPressedListener
 import ru.akimychev.poplibs.databinding.FragmentUserListBinding
+import ru.akimychev.poplibs.details.OnItemClick
 import ru.akimychev.poplibs.main.UserAdapter
 import ru.akimychev.poplibs.model.GithubUser
-import ru.akimychev.poplibs.repository.impl.GithubRepositoryImpl
+import ru.akimychev.poplibs.repository.impl.UserListRepositoryImpl
 
-class UserFragment : MvpAppCompatFragment(), UserView, BackPressedListener {
+class UserListFragment : MvpAppCompatFragment(), UserListView, BackPressedListener, OnItemClick {
 
     companion object {
-        fun getInstance(): UserFragment {
-            return UserFragment()
+        fun getInstance(): UserListFragment {
+            return UserListFragment()
         }
     }
 
     private lateinit var viewBinding: FragmentUserListBinding
 
-    private val adapter = UserAdapter()
-    private val presenter: UserPresenter by moxyPresenter {
-        UserPresenter(GithubRepositoryImpl(), GeekBrainsApp.instance.router)
+    private val adapter = UserAdapter(this)
+    private val presenter: UserListPresenter by moxyPresenter {
+        UserListPresenter(UserListRepositoryImpl(), GeekBrainsApp.instance.router)
     }
+
+    lateinit var res: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,4 +55,9 @@ class UserFragment : MvpAppCompatFragment(), UserView, BackPressedListener {
     }
 
     override fun onBackPressed() = presenter.onBackPressed()
+
+    override fun onItemClick(login: GithubUser) {
+        presenter.navigateToDetails()
+    }
+
 }

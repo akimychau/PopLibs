@@ -2,7 +2,11 @@ package ru.akimychev.poplibs.repository
 
 import ru.akimychev.poplibs.model.GithubUser
 
-interface GithubRepository {
+fun interface UserListRepository {
 
     fun getUsers(): List<GithubUser>
+}
+
+fun interface UserDetailsRepository{
+    fun getLogin()
 }
