@@ -14,8 +14,13 @@ import ru.akimychev.poplibs.repository.impl.UserDetailsRepositoryImpl
 class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, BackPressedListener {
 
     companion object {
-        fun getInstance(): UserDetailsFragment {
-            return UserDetailsFragment()
+        const val BUNDLE_EXTRA_WEATHER = "BUNDLE_EXTRA_WEATHER"
+        fun getInstance(login: String): UserDetailsFragment {
+            val bundle = Bundle()
+            bundle.putString(BUNDLE_EXTRA_WEATHER, login)
+            val fragment = UserDetailsFragment()
+            fragment.arguments = bundle
+            return fragment
         }
     }
 
@@ -37,11 +42,12 @@ class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, BackPressed
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.loginClick()
+
+        val login = arguments?.getString(BUNDLE_EXTRA_WEATHER)
+        login?.let { presenter.loginClick(it) }
     }
 
     override fun onBackPressed() = presenter.onBackPressed()
-
 
     override fun initLogin(login: String) {
         viewBinding.userLogin.text = login

@@ -57,7 +57,7 @@ class UserListFragment : MvpAppCompatFragment(), UserListView, BackPressedListen
     override fun onBackPressed() = presenter.onBackPressed()
 
     override fun onItemClick(login: GithubUser) {
-        presenter.navigateToDetails()
+        presenter.navigateToDetails(login.login)
     }
 
 }

@@ -13,9 +13,10 @@ object UsersScreen : FragmentScreen {
 
 }
 
-object UsersDetailsScreen : FragmentScreen {
+class UsersDetailsScreen(login: String) : FragmentScreen {
+    private val name = login
     override fun createFragment(factory: FragmentFactory): Fragment {
-        return UserDetailsFragment.getInstance()
+        return UserDetailsFragment.getInstance(name)
     }
 
 }

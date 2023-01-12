@@ -9,8 +9,7 @@ class UserDetailsPresenter(
     private val router: Router
 ) : MvpPresenter<UserDetailsView>() {
 
-    fun loginClick() {
-        val login = "i dont know"
+    fun loginClick(login: String) {
         viewState.initLogin(login)
     }
 

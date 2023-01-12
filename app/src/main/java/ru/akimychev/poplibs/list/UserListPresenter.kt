@@ -21,7 +21,7 @@ class UserListPresenter(
         return true
     }
 
-    fun navigateToDetails() {
-        router.navigateTo(UsersDetailsScreen)
+    fun navigateToDetails(login: String) {
+        router.navigateTo(UsersDetailsScreen(login))
     }
 }
