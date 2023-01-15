@@ -54,6 +54,14 @@ class UserListFragment : MvpAppCompatFragment(), UserListView, BackPressedListen
         adapter.users = list
     }
 
+    override fun showLoading() {
+        viewBinding.progressBar.visibility = View.VISIBLE
+    }
+
+    override fun hideLoading() {
+        viewBinding.progressBar.visibility = View.GONE
+    }
+
     override fun onBackPressed() = presenter.onBackPressed()
 
     override fun onItemClick(login: GithubUser) {

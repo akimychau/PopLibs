@@ -9,4 +9,6 @@ import ru.akimychev.poplibs.model.GithubUser
 interface UserListView : MvpView {
 
     fun initList(list: List<GithubUser>)
+    fun showLoading()
+    fun hideLoading()
 }

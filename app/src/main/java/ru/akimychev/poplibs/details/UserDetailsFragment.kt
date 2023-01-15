@@ -9,7 +9,6 @@ import moxy.ktx.moxyPresenter
 import ru.akimychev.poplibs.GeekBrainsApp
 import ru.akimychev.poplibs.core.BackPressedListener
 import ru.akimychev.poplibs.databinding.FragmentUserDetailsBinding
-import ru.akimychev.poplibs.repository.impl.UserDetailsRepositoryImpl
 
 class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, BackPressedListener {
 
@@ -27,7 +26,7 @@ class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, BackPressed
     private lateinit var viewBinding: FragmentUserDetailsBinding
 
     private val presenter: UserDetailsPresenter by moxyPresenter {
-        UserDetailsPresenter(UserDetailsRepositoryImpl(), GeekBrainsApp.instance.router)
+        UserDetailsPresenter(GeekBrainsApp.instance.router)
     }
 
     override fun onCreateView(
@@ -44,7 +43,7 @@ class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, BackPressed
         super.onViewCreated(view, savedInstanceState)
 
         val login = arguments?.getString(BUNDLE_EXTRA_WEATHER)
-        login?.let { presenter.loginClick(it) }
+        login?.let { presenter.getLogin(it) }
     }
 
     override fun onBackPressed() = presenter.onBackPressed()
