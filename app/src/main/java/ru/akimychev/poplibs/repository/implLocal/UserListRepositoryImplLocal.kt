@@ -1,17 +1,17 @@
-package ru.akimychev.poplibs.repository.impl
+package ru.akimychev.poplibs.repository.implLocal
 
 import io.reactivex.rxjava3.core.Single
 import ru.akimychev.poplibs.model.GithubUser
 import ru.akimychev.poplibs.repository.UserListRepository
 
-class UserListRepositoryImpl : UserListRepository {
+class UserListRepositoryImplLocal : UserListRepository {
 
     private val repositories = listOf(
-        GithubUser("Cat"),
-        GithubUser("Dog"),
-        GithubUser("Mouse"),
-        GithubUser("Pig"),
-        GithubUser("Rat")
+        GithubUser("Cat", "1", "qwe"),
+        GithubUser("Dog", "2", "qwe"),
+        GithubUser("Mouse", "3", "qwe"),
+        GithubUser("Pig", "4", "qwe"),
+        GithubUser("Rat", "5", "QWE")
     )
 
     override fun getUsers(): Single<List<GithubUser>> {

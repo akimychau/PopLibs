@@ -9,5 +9,6 @@ fun interface UserListRepository {
 }
 
 fun interface UserDetailsRepository {
-    fun getLogin(login: String)
+
+    fun getLogin(login: String): Single<GithubUser>
 }

@@ -11,9 +11,9 @@ import ru.akimychev.poplibs.GeekBrainsApp
 import ru.akimychev.poplibs.core.BackPressedListener
 import ru.akimychev.poplibs.databinding.FragmentUserListBinding
 import ru.akimychev.poplibs.details.OnItemClick
-import ru.akimychev.poplibs.main.UserAdapter
 import ru.akimychev.poplibs.model.GithubUser
-import ru.akimychev.poplibs.repository.impl.UserListRepositoryImpl
+import ru.akimychev.poplibs.network.NetworkProvider
+import ru.akimychev.poplibs.repository.implApi.UserListRepositoryImpl
 
 class UserListFragment : MvpAppCompatFragment(), UserListView, BackPressedListener, OnItemClick {
 
@@ -27,7 +27,10 @@ class UserListFragment : MvpAppCompatFragment(), UserListView, BackPressedListen
 
     private val adapter = UserAdapter(this)
     private val presenter: UserListPresenter by moxyPresenter {
-        UserListPresenter(UserListRepositoryImpl(), GeekBrainsApp.instance.router)
+        UserListPresenter(
+            UserListRepositoryImpl(NetworkProvider.usersApi),
+            GeekBrainsApp.instance.router
+        )
     }
 
     lateinit var res: String
@@ -64,8 +67,8 @@ class UserListFragment : MvpAppCompatFragment(), UserListView, BackPressedListen
 
     override fun onBackPressed() = presenter.onBackPressed()
 
-    override fun onItemClick(login: GithubUser) {
-        presenter.navigateToDetails(login.login)
+    override fun onItemClick(user: GithubUser) {
+        presenter.navigateToDetails(user.login)
     }
 
 }

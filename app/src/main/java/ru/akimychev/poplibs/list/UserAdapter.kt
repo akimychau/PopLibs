@@ -1,12 +1,12 @@
-package ru.akimychev.poplibs.main
+package ru.akimychev.poplibs.list
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import ru.akimychev.poplibs.R
+import ru.akimychev.poplibs.databinding.ItemUserBinding
 import ru.akimychev.poplibs.details.OnItemClick
 import ru.akimychev.poplibs.model.GithubUser
 
@@ -21,8 +21,8 @@ class UserAdapter(private val callback: OnItemClick) :
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GithubUserViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_user, parent, false)
-        return GithubUserViewHolder(view)
+        val binding = ItemUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return GithubUserViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: GithubUserViewHolder, position: Int) {
@@ -31,15 +31,18 @@ class UserAdapter(private val callback: OnItemClick) :
 
     override fun getItemCount() = users.size
 
-    inner class GithubUserViewHolder(itemView: View) :
-        RecyclerView.ViewHolder(itemView) {
+    inner class GithubUserViewHolder(
+        private val binding: ItemUserBinding
+    ) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        private val tvLogin by lazy { itemView.findViewById<TextView>(R.id.userLogin) }
-
-        fun bind(item: GithubUser) {
-            tvLogin.text = item.login
-            tvLogin.setOnClickListener {
+        fun bind(item: GithubUser) = with(binding) {
+            userLogin.text = item.login
+            userLogin.setOnClickListener {
                 callback.onItemClick(item)
+            }
+            userAvatar.load(item.userAvatar) {
+                placeholder(R.drawable.ic_baseline_supervised_user_circle_24)
             }
         }
     }

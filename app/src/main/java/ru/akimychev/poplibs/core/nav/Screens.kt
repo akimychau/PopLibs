@@ -10,13 +10,10 @@ object UsersScreen : FragmentScreen {
     override fun createFragment(factory: FragmentFactory): Fragment {
         return UserListFragment.getInstance()
     }
-
 }
 
-class UsersDetailsScreen(login: String) : FragmentScreen {
-    private val name = login
+data class UsersDetailsScreen(private val login: String) : FragmentScreen {
     override fun createFragment(factory: FragmentFactory): Fragment {
-        return UserDetailsFragment.getInstance(name)
+        return UserDetailsFragment.getInstance(login)
     }
-
 }

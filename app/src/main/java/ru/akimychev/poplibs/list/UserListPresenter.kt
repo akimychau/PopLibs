@@ -1,13 +1,13 @@
 package ru.akimychev.poplibs.list
 
+import android.util.Log
 import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.disposables.Disposable
 import moxy.MvpPresenter
 import ru.akimychev.poplibs.core.nav.UsersDetailsScreen
 import ru.akimychev.poplibs.repository.UserListRepository
+import ru.akimychev.poplibs.utils.disposeBy
 import ru.akimychev.poplibs.utils.subscribeByDefault
-import java.util.concurrent.TimeUnit
 
 class UserListPresenter(
     private val userListRepository: UserListRepository,
@@ -21,7 +21,6 @@ class UserListPresenter(
         super.onFirstViewAttach()
         viewState.showLoading()
         userListRepository.getUsers()
-            .delay(2, TimeUnit.SECONDS)
             .subscribeByDefault()
             .subscribe(
                 {
@@ -30,12 +29,9 @@ class UserListPresenter(
                 },
                 {
                     println("Что-то пошло не так")
+                    it.message?.let { it1 -> Log.e("@@@", it1) }
                 }
             ).disposeBy(bag)
-    }
-
-    private fun Disposable.disposeBy(bag: CompositeDisposable) {
-        bag.add(this)
     }
 
     override fun onDestroy() {

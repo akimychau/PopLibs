@@ -4,29 +4,36 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import coil.load
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import ru.akimychev.poplibs.GeekBrainsApp
 import ru.akimychev.poplibs.core.BackPressedListener
 import ru.akimychev.poplibs.databinding.FragmentUserDetailsBinding
+import ru.akimychev.poplibs.model.GithubUser
+import ru.akimychev.poplibs.network.NetworkProvider
+import ru.akimychev.poplibs.repository.implApi.UserDetailsRepositoryImpl
 
 class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, BackPressedListener {
 
     companion object {
-        const val BUNDLE_EXTRA_WEATHER = "BUNDLE_EXTRA_WEATHER"
+        const val BUNDLE_USER_LOGIN = "BUNDLE_USER_LOGIN"
         fun getInstance(login: String): UserDetailsFragment {
-            val bundle = Bundle()
-            bundle.putString(BUNDLE_EXTRA_WEATHER, login)
-            val fragment = UserDetailsFragment()
-            fragment.arguments = bundle
-            return fragment
+            return UserDetailsFragment().apply {
+                arguments = Bundle().apply {
+                    putString(BUNDLE_USER_LOGIN, login)
+                }
+            }
         }
     }
 
     private lateinit var viewBinding: FragmentUserDetailsBinding
 
     private val presenter: UserDetailsPresenter by moxyPresenter {
-        UserDetailsPresenter(GeekBrainsApp.instance.router)
+        UserDetailsPresenter(
+            GeekBrainsApp.instance.router,
+            UserDetailsRepositoryImpl(NetworkProvider.usersApi)
+        )
     }
 
     override fun onCreateView(
@@ -42,13 +49,21 @@ class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, BackPressed
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val login = arguments?.getString(BUNDLE_EXTRA_WEATHER)
-        login?.let { presenter.getLogin(it) }
+        arguments?.getString(BUNDLE_USER_LOGIN)?.let { presenter.getLogin(it) }
     }
 
     override fun onBackPressed() = presenter.onBackPressed()
 
-    override fun initLogin(login: String) {
-        viewBinding.userLogin.text = login
+    override fun showUserDetails(user: GithubUser) {
+        viewBinding.userLogin.text = user.login
+        viewBinding.userAvatar.load(user.userAvatar)
+    }
+
+    override fun showLoading() {
+        viewBinding.progressBar.visibility = View.VISIBLE
+    }
+
+    override fun hideLoading() {
+        viewBinding.progressBar.visibility = View.GONE
     }
 }
