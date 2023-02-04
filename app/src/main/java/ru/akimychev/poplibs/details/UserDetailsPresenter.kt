@@ -1,5 +1,6 @@
 package ru.akimychev.poplibs.details
 
+import android.util.Log
 import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import moxy.MvpPresenter
@@ -20,10 +21,21 @@ class UserDetailsPresenter(
             .subscribeByDefault()
             .subscribe(
                 {
-                    viewState.showUserDetails(it)
+                viewState.show(it)
+                },{
+                    it.message?.let { it1 -> Log.e("@@@", it1) }
+                    println("Что-то пошло не так")
+                }
+            ).disposeBy(bag)
+        userDetailsRepository.getRepos(login)
+            .subscribeByDefault()
+            .subscribe(
+                {
+                    viewState.initList(it)
                     viewState.hideLoading()
                 },
                 {
+                    it.message?.let { it1 -> Log.e("@@@", it1) }
                     println("Что-то пошло не так")
                 }
             ).disposeBy(bag)

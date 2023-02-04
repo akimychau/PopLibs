@@ -5,11 +5,13 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import ru.akimychev.poplibs.BuildConfig
 
 object NetworkProvider {
 
     val usersApi: UsersApi by lazy { createRetrofit().create(UsersApi::class.java) }
+    val reposApi: ReposApi by lazy { createRetrofit().create(ReposApi::class.java) }
 
     private fun createGson() = GsonBuilder()
         .excludeFieldsWithoutExposeAnnotation()
