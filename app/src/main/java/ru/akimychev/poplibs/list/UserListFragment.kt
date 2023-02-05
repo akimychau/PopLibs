@@ -25,10 +25,10 @@ class UserListFragment : MvpAppCompatFragment(), UserListView, BackPressedListen
 
     private lateinit var viewBinding: FragmentUserListBinding
 
-    private val adapter = UserAdapter(this)
+    private val adapter = UserListAdapter(this)
     private val presenter: UserListPresenter by moxyPresenter {
         UserListPresenter(
-            UserListRepositoryImpl(NetworkProvider.usersApi),
+            UserListRepositoryImpl(NetworkProvider.userApi),
             GeekBrainsApp.instance.router
         )
     }
@@ -68,7 +68,7 @@ class UserListFragment : MvpAppCompatFragment(), UserListView, BackPressedListen
     override fun onBackPressed() = presenter.onBackPressed()
 
     override fun onItemClick(user: GithubUser) {
-        presenter.navigateToDetails(user.login)
+        presenter.navigateToDetails(user)
     }
 
 }

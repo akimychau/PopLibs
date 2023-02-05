@@ -4,6 +4,7 @@ import android.util.Log
 import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import moxy.MvpPresenter
+import ru.akimychev.poplibs.model.GithubUser
 import ru.akimychev.poplibs.repository.UserDetailsRepository
 import ru.akimychev.poplibs.utils.disposeBy
 import ru.akimychev.poplibs.utils.subscribeByDefault
@@ -15,23 +16,14 @@ class UserDetailsPresenter(
 
     private val bag = CompositeDisposable()
 
-    fun getLogin(login: String) {
+    fun getLogin(user: GithubUser) {
         viewState.showLoading()
-        userDetailsRepository.getLogin(login)
+        userDetailsRepository.getRepos(user.reposUrl)
             .subscribeByDefault()
             .subscribe(
-                {
-                viewState.show(it)
-                },{
-                    it.message?.let { it1 -> Log.e("@@@", it1) }
-                    println("Что-то пошло не так")
-                }
-            ).disposeBy(bag)
-        userDetailsRepository.getRepos(login)
-            .subscribeByDefault()
-            .subscribe(
-                {
-                    viewState.initList(it)
+                { list ->
+                    viewState.show(user)
+                    viewState.initList(list)
                     viewState.hideLoading()
                 },
                 {

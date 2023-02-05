@@ -4,6 +4,6 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Repo(
+data class UserRepos(
     val name: String
 ) : Parcelable

@@ -5,6 +5,7 @@ import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import moxy.MvpPresenter
 import ru.akimychev.poplibs.core.nav.UsersDetailsScreen
+import ru.akimychev.poplibs.model.GithubUser
 import ru.akimychev.poplibs.repository.UserListRepository
 import ru.akimychev.poplibs.utils.disposeBy
 import ru.akimychev.poplibs.utils.subscribeByDefault
@@ -44,7 +45,7 @@ class UserListPresenter(
         return true
     }
 
-    fun navigateToDetails(login: String) {
-        router.navigateTo(UsersDetailsScreen(login))
+    fun navigateToDetails(user: GithubUser) {
+        router.navigateTo(UsersDetailsScreen(user))
     }
 }

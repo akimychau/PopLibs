@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentFactory
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import ru.akimychev.poplibs.details.UserDetailsFragment
 import ru.akimychev.poplibs.list.UserListFragment
+import ru.akimychev.poplibs.model.GithubUser
 
 object UsersScreen : FragmentScreen {
     override fun createFragment(factory: FragmentFactory): Fragment {
@@ -12,8 +13,8 @@ object UsersScreen : FragmentScreen {
     }
 }
 
-data class UsersDetailsScreen(private val login: String) : FragmentScreen {
+data class UsersDetailsScreen(private val user: GithubUser) : FragmentScreen {
     override fun createFragment(factory: FragmentFactory): Fragment {
-        return UserDetailsFragment.getInstance(login)
+        return UserDetailsFragment.getInstance(user)
     }
 }
