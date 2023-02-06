@@ -7,10 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import ru.akimychev.poplibs.R
 import ru.akimychev.poplibs.databinding.ItemUserBinding
-import ru.akimychev.poplibs.details.OnItemClick
+import ru.akimychev.poplibs.core.UserListOnItemClick
 import ru.akimychev.poplibs.model.GithubUser
 
-class UserListAdapter(private val callback: OnItemClick) :
+class UserListAdapter(private val callback: UserListOnItemClick) :
     RecyclerView.Adapter<UserListAdapter.GithubUserViewHolder>() {
 
     var users: List<GithubUser> = emptyList()
@@ -38,8 +38,8 @@ class UserListAdapter(private val callback: OnItemClick) :
 
         fun bind(item: GithubUser) = with(binding) {
             userLogin.text = item.login
-            userLogin.setOnClickListener {
-                callback.onItemClick(item)
+            card.setOnClickListener {
+                callback.userListOnItemClick(item)
             }
             userAvatar.load(item.userAvatar) {
                 placeholder(R.drawable.ic_baseline_supervised_user_circle_24)

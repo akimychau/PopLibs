@@ -10,13 +10,14 @@ import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import ru.akimychev.poplibs.GeekBrainsApp
 import ru.akimychev.poplibs.core.BackPressedListener
+import ru.akimychev.poplibs.core.UserDetailsOnItemClick
 import ru.akimychev.poplibs.databinding.FragmentUserDetailsBinding
 import ru.akimychev.poplibs.model.GithubUser
 import ru.akimychev.poplibs.model.UserRepos
 import ru.akimychev.poplibs.network.NetworkProvider
 import ru.akimychev.poplibs.repository.implApi.UserDetailsRepositoryImpl
 
-class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, BackPressedListener {
+class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, BackPressedListener, UserDetailsOnItemClick {
 
     companion object {
         const val BUNDLE_GITHUB_USER = "BUNDLE_GITHUB_USER"
@@ -30,7 +31,7 @@ class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, BackPressed
     }
 
     private lateinit var viewBinding: FragmentUserDetailsBinding
-    private val adapter = UserDetailsAdapter()
+    private val adapter = UserDetailsAdapter(this)
 
     private val presenter: UserDetailsPresenter by moxyPresenter {
         UserDetailsPresenter(
@@ -76,5 +77,9 @@ class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, BackPressed
 
     override fun hideLoading() {
         viewBinding.progressBar.visibility = View.GONE
+    }
+
+    override fun userDetailsOnItemClick(repos: UserRepos) {
+        presenter.navigateToDetails(repos)
     }
 }

@@ -8,7 +8,8 @@ import ru.akimychev.poplibs.network.UserDto
 object RepoMapper {
     fun mapToEntity(dto: UserReposDto): UserRepos {
         return UserRepos(
-            name = dto.name
+            name = dto.name,
+            forksCount = dto.forksCount
         )
     }
 }

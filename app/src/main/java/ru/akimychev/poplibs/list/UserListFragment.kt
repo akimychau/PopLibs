@@ -10,12 +10,13 @@ import moxy.ktx.moxyPresenter
 import ru.akimychev.poplibs.GeekBrainsApp
 import ru.akimychev.poplibs.core.BackPressedListener
 import ru.akimychev.poplibs.databinding.FragmentUserListBinding
-import ru.akimychev.poplibs.details.OnItemClick
+import ru.akimychev.poplibs.core.UserListOnItemClick
 import ru.akimychev.poplibs.model.GithubUser
 import ru.akimychev.poplibs.network.NetworkProvider
 import ru.akimychev.poplibs.repository.implApi.UserListRepositoryImpl
 
-class UserListFragment : MvpAppCompatFragment(), UserListView, BackPressedListener, OnItemClick {
+class UserListFragment : MvpAppCompatFragment(), UserListView, BackPressedListener,
+    UserListOnItemClick {
 
     companion object {
         fun getInstance(): UserListFragment {
@@ -67,7 +68,7 @@ class UserListFragment : MvpAppCompatFragment(), UserListView, BackPressedListen
 
     override fun onBackPressed() = presenter.onBackPressed()
 
-    override fun onItemClick(user: GithubUser) {
+    override fun userListOnItemClick(user: GithubUser) {
         presenter.navigateToDetails(user)
     }
 

@@ -4,10 +4,11 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import ru.akimychev.poplibs.core.UserDetailsOnItemClick
 import ru.akimychev.poplibs.databinding.ItemReposBinding
 import ru.akimychev.poplibs.model.UserRepos
 
-class UserDetailsAdapter :
+class UserDetailsAdapter(private val callback: UserDetailsOnItemClick) :
     RecyclerView.Adapter<UserDetailsAdapter.ReposListViewHolder>() {
 
     var userReposList: List<UserRepos> = emptyList()
@@ -35,6 +36,9 @@ class UserDetailsAdapter :
 
         fun bind(item: UserRepos) = with(binding) {
             reposName.text = item.name
+            card.setOnClickListener {
+                callback.userDetailsOnItemClick(item)
+            }
         }
     }
 }
