@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 data class UserDto(
     @Expose
     @SerializedName("id")
-    val id: String,
+    val id: Long,
     @Expose
     @SerializedName("login")
     val login: String,

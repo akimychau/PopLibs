@@ -17,8 +17,8 @@ object RepoMapper {
 object UserMapper {
     fun mapToEntity(dto: UserDto): GithubUser {
         return GithubUser(
-            login = dto.login,
             id = dto.id,
+            login = dto.login,
             userAvatar = dto.avatarUrl,
             reposUrl = dto.reposUrl
         )
