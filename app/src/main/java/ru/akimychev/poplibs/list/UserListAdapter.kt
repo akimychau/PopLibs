@@ -41,7 +41,7 @@ class UserListAdapter(private val callback: UserListOnItemClick) :
             card.setOnClickListener {
                 callback.userListOnItemClick(item)
             }
-            userAvatar.load(item.userAvatar) {
+            userAvatar.load(item.avatarUrl) {
                 placeholder(R.drawable.ic_baseline_supervised_user_circle_24)
             }
         }

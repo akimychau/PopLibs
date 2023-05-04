@@ -7,7 +7,7 @@ import ru.akimychev.poplibs.details.UserDetailsFragment
 import ru.akimychev.poplibs.forksCount.ForksCountFragment
 import ru.akimychev.poplibs.list.UserListFragment
 import ru.akimychev.poplibs.model.GithubUser
-import ru.akimychev.poplibs.model.UserRepos
+import ru.akimychev.poplibs.model.GithubUserRepos
 
 object UsersScreen : FragmentScreen {
     override fun createFragment(factory: FragmentFactory): Fragment {
@@ -21,7 +21,7 @@ data class UsersDetailsScreen(private val user: GithubUser) : FragmentScreen {
     }
 }
 
-data class ForksCountScreen(private val repos: UserRepos) : FragmentScreen {
+data class ForksCountScreen(private val repos: GithubUserRepos) : FragmentScreen {
     override fun createFragment(factory: FragmentFactory): Fragment {
         return ForksCountFragment.getInstance(repos)
     }

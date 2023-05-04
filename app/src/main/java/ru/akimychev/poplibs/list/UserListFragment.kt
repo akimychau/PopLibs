@@ -29,7 +29,7 @@ class UserListFragment : MvpAppCompatFragment(), UserListView, BackPressedListen
     private val adapter = UserListAdapter(this)
     private val presenter: UserListPresenter by moxyPresenter {
         UserListPresenter(
-            UserListRepositoryImpl(NetworkProvider.userApi),
+            UserListRepositoryImpl(NetworkProvider.githubUserApi),
             GeekBrainsApp.instance.router
         )
     }

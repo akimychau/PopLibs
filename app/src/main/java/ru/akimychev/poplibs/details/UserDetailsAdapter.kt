@@ -6,12 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.akimychev.poplibs.core.UserDetailsOnItemClick
 import ru.akimychev.poplibs.databinding.ItemReposBinding
-import ru.akimychev.poplibs.model.UserRepos
+import ru.akimychev.poplibs.model.GithubUserRepos
 
 class UserDetailsAdapter(private val callback: UserDetailsOnItemClick) :
     RecyclerView.Adapter<UserDetailsAdapter.ReposListViewHolder>() {
 
-    var userReposList: List<UserRepos> = emptyList()
+    var githubUserReposList: List<GithubUserRepos> = emptyList()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
@@ -24,17 +24,17 @@ class UserDetailsAdapter(private val callback: UserDetailsOnItemClick) :
     }
 
     override fun onBindViewHolder(holder: ReposListViewHolder, position: Int) {
-        holder.bind(userReposList[position])
+        holder.bind(githubUserReposList[position])
     }
 
-    override fun getItemCount() = userReposList.size
+    override fun getItemCount() = githubUserReposList.size
 
     inner class ReposListViewHolder(
         private val binding: ItemReposBinding
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: UserRepos) = with(binding) {
+        fun bind(item: GithubUserRepos) = with(binding) {
             reposName.text = item.name
             card.setOnClickListener {
                 callback.userDetailsOnItemClick(item)

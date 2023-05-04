@@ -7,8 +7,8 @@ import moxy.MvpPresenter
 import ru.akimychev.poplibs.core.nav.UsersDetailsScreen
 import ru.akimychev.poplibs.model.GithubUser
 import ru.akimychev.poplibs.repository.UserListRepository
-import ru.akimychev.poplibs.utils.disposeBy
-import ru.akimychev.poplibs.utils.subscribeByDefault
+import ru.akimychev.poplibs.core.utils.disposeBy
+import ru.akimychev.poplibs.core.utils.subscribeByDefault
 
 class UserListPresenter(
     private val userListRepository: UserListRepository,

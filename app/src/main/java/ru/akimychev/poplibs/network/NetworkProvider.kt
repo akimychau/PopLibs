@@ -9,8 +9,8 @@ import ru.akimychev.poplibs.BuildConfig
 
 object NetworkProvider {
 
-    val userApi: UserApi by lazy { createRetrofit().create(UserApi::class.java) }
-    val userReposApi: UserReposApi by lazy { createRetrofit().create(UserReposApi::class.java) }
+    val githubUserApi: GithubUserApi by lazy { createRetrofit().create(GithubUserApi::class.java) }
+    val githubUserReposApi: GithubUserReposApi by lazy { createRetrofit().create(GithubUserReposApi::class.java) }
 
     private fun createGson() = GsonBuilder()
         .excludeFieldsWithoutExposeAnnotation()

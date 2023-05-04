@@ -5,13 +5,11 @@ import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import moxy.MvpPresenter
 import ru.akimychev.poplibs.core.nav.ForksCountScreen
-import ru.akimychev.poplibs.core.nav.UsersDetailsScreen
-import ru.akimychev.poplibs.forksCount.ForksCountFragment
 import ru.akimychev.poplibs.model.GithubUser
-import ru.akimychev.poplibs.model.UserRepos
+import ru.akimychev.poplibs.model.GithubUserRepos
 import ru.akimychev.poplibs.repository.UserDetailsRepository
-import ru.akimychev.poplibs.utils.disposeBy
-import ru.akimychev.poplibs.utils.subscribeByDefault
+import ru.akimychev.poplibs.core.utils.disposeBy
+import ru.akimychev.poplibs.core.utils.subscribeByDefault
 
 class UserDetailsPresenter(
     private val router: Router,
@@ -37,7 +35,7 @@ class UserDetailsPresenter(
             ).disposeBy(bag)
     }
 
-    fun navigateToDetails(repos: UserRepos) {
+    fun navigateToDetails(repos: GithubUserRepos) {
         router.navigateTo(ForksCountScreen(repos))
     }
 

@@ -9,13 +9,13 @@ import moxy.ktx.moxyPresenter
 import ru.akimychev.poplibs.GeekBrainsApp
 import ru.akimychev.poplibs.core.BackPressedListener
 import ru.akimychev.poplibs.databinding.FragmentForksCountBinding
-import ru.akimychev.poplibs.model.UserRepos
+import ru.akimychev.poplibs.model.GithubUserRepos
 
 class ForksCountFragment : MvpAppCompatFragment(), ForksCountView, BackPressedListener {
 
     companion object {
         const val BUNDLE_FORKS_COUNT = "BUNDLE_FORKS_COUNT"
-        fun getInstance(repos: UserRepos): ForksCountFragment {
+        fun getInstance(repos: GithubUserRepos): ForksCountFragment {
             return ForksCountFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(BUNDLE_FORKS_COUNT, repos)
@@ -40,7 +40,7 @@ class ForksCountFragment : MvpAppCompatFragment(), ForksCountView, BackPressedLi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments?.getParcelable<UserRepos>(BUNDLE_FORKS_COUNT)
+        arguments?.getParcelable<GithubUserRepos>(BUNDLE_FORKS_COUNT)
             ?.let { presenter.show(it) }
     }
 

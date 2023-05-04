@@ -13,7 +13,7 @@ import ru.akimychev.poplibs.core.BackPressedListener
 import ru.akimychev.poplibs.core.UserDetailsOnItemClick
 import ru.akimychev.poplibs.databinding.FragmentUserDetailsBinding
 import ru.akimychev.poplibs.model.GithubUser
-import ru.akimychev.poplibs.model.UserRepos
+import ru.akimychev.poplibs.model.GithubUserRepos
 import ru.akimychev.poplibs.network.NetworkProvider
 import ru.akimychev.poplibs.repository.implApi.UserDetailsRepositoryImpl
 
@@ -36,7 +36,7 @@ class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, BackPressed
     private val presenter: UserDetailsPresenter by moxyPresenter {
         UserDetailsPresenter(
             GeekBrainsApp.instance.router,
-            UserDetailsRepositoryImpl(NetworkProvider.userReposApi)
+            UserDetailsRepositoryImpl(NetworkProvider.githubUserReposApi)
         )
     }
 
@@ -61,12 +61,12 @@ class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, BackPressed
 
     override fun onBackPressed() = presenter.onBackPressed()
 
-    override fun initList(list: List<UserRepos>) {
-        adapter.userReposList = list
+    override fun initList(list: List<GithubUserRepos>) {
+        adapter.githubUserReposList = list
     }
 
     override fun show(user: GithubUser) {
-        viewBinding.userAvatar.load(user.userAvatar)
+        viewBinding.userAvatar.load(user.avatarUrl)
         viewBinding.userLogin.text = user.login
     }
 
@@ -79,7 +79,7 @@ class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, BackPressed
         viewBinding.progressBar.visibility = View.GONE
     }
 
-    override fun userDetailsOnItemClick(repos: UserRepos) {
+    override fun userDetailsOnItemClick(repos: GithubUserRepos) {
         presenter.navigateToDetails(repos)
     }
 }

@@ -3,7 +3,6 @@ package ru.akimychev.poplibs.forksCount
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.StateStrategyType
-import ru.akimychev.poplibs.model.UserRepos
 
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface ForksCountView: MvpView {
