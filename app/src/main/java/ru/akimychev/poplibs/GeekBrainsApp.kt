@@ -1,11 +1,9 @@
 package ru.akimychev.poplibs
 
 import android.app.Application
-import android.content.Context
-import android.net.ConnectivityManager
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router
-import ru.akimychev.poplibs.core.utils.ConnectivityListener
+import ru.akimychev.poplibs.database.GithubAppDb
 
 class GeekBrainsApp : Application() {
 
@@ -18,18 +16,10 @@ class GeekBrainsApp : Application() {
     val navigationHolder = cicerone.getNavigatorHolder()
     val router = cicerone.router
 
-    private lateinit var connectivityListener: ConnectivityListener
-
     override fun onCreate() {
         super.onCreate()
         instance = this
 
-        connectivityListener = ConnectivityListener(
-            applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        )
+        GithubAppDb.create(this)
     }
-
-    fun getConnectObservable() = connectivityListener.status()
-    fun getConnectSingle() = connectivityListener.statusSingle()
-
 }
