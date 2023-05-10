@@ -9,5 +9,5 @@ fun interface UserListRepository {
 }
 
 fun interface UserDetailsRepository {
-    fun getRepos(login: String): Single<List<GithubUserRepos>>
+    fun getRepos(user: GithubUser): Single<List<GithubUserRepos>>
 }

@@ -20,7 +20,7 @@ class UserDetailsPresenter(
 
     fun getLogin(user: GithubUser) {
         viewState.showLoading()
-        userDetailsRepository.getRepos(user.reposUrl)
+        userDetailsRepository.getRepos(user)
             .subscribeByDefault()
             .subscribe(
                 { list ->

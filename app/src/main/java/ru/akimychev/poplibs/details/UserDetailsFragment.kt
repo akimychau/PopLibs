@@ -9,15 +9,19 @@ import coil.load
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import ru.akimychev.poplibs.GeekBrainsApp
+import ru.akimychev.poplibs.cache.RoomRepositoriesCache
 import ru.akimychev.poplibs.core.BackPressedListener
 import ru.akimychev.poplibs.core.UserDetailsOnItemClick
+import ru.akimychev.poplibs.core.connectivityListener.ConnectivityListener
+import ru.akimychev.poplibs.database.GithubAppDb
 import ru.akimychev.poplibs.databinding.FragmentUserDetailsBinding
 import ru.akimychev.poplibs.model.GithubUser
 import ru.akimychev.poplibs.model.GithubUserRepos
 import ru.akimychev.poplibs.network.NetworkProvider
 import ru.akimychev.poplibs.repository.implApi.UserDetailsRepositoryImpl
 
-class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, BackPressedListener, UserDetailsOnItemClick {
+class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, BackPressedListener,
+    UserDetailsOnItemClick {
 
     companion object {
         const val BUNDLE_GITHUB_USER = "BUNDLE_GITHUB_USER"
@@ -36,14 +40,16 @@ class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, BackPressed
     private val presenter: UserDetailsPresenter by moxyPresenter {
         UserDetailsPresenter(
             GeekBrainsApp.instance.router,
-            UserDetailsRepositoryImpl(NetworkProvider.githubUserReposApi)
+            UserDetailsRepositoryImpl(NetworkProvider.githubUserReposApi,
+                ConnectivityListener(GeekBrainsApp.instance),
+                RoomRepositoriesCache(GithubAppDb.getInstance()))
         )
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         return FragmentUserDetailsBinding.inflate(inflater, container, false).also {
             viewBinding = it

@@ -10,6 +10,7 @@ import ru.akimychev.poplibs.network.GithubUserReposDto
 object RepoMapper {
     fun mapDtoToEntity(userDto: GithubUserReposDto): GithubUserRepos {
         return GithubUserRepos(
+            id = userDto.id,
             name = userDto.name,
             forksCount = userDto.forksCount
         )
@@ -17,6 +18,7 @@ object RepoMapper {
 
     fun mapDbToEntity(repoDb: RoomGithubUserRepos): GithubUserRepos {
         return GithubUserRepos(
+            id = repoDb.id,
             forksCount = repoDb.forksCount,
             name = repoDb.name
         )
@@ -50,5 +52,4 @@ object UserMapper {
             reposUrl = userDto.reposUrl
         )
     }
-
 }

@@ -7,10 +7,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
-import ru.akimychev.poplibs.GeekBrainsApp
+import ru.akimychev.poplibs.GeekBrainsApp.Companion.instance
+import ru.akimychev.poplibs.cache.RoomUserCache
 import ru.akimychev.poplibs.core.BackPressedListener
-import ru.akimychev.poplibs.databinding.FragmentUserListBinding
 import ru.akimychev.poplibs.core.UserListOnItemClick
+import ru.akimychev.poplibs.core.connectivityListener.ConnectivityListener
+import ru.akimychev.poplibs.database.GithubAppDb
+import ru.akimychev.poplibs.databinding.FragmentUserListBinding
 import ru.akimychev.poplibs.model.GithubUser
 import ru.akimychev.poplibs.network.NetworkProvider
 import ru.akimychev.poplibs.repository.implApi.UserListRepositoryImpl
@@ -29,8 +32,12 @@ class UserListFragment : MvpAppCompatFragment(), UserListView, BackPressedListen
     private val adapter = UserListAdapter(this)
     private val presenter: UserListPresenter by moxyPresenter {
         UserListPresenter(
-            UserListRepositoryImpl(NetworkProvider.githubUserApi),
-            GeekBrainsApp.instance.router
+            UserListRepositoryImpl(
+                NetworkProvider.githubUserApi,
+                ConnectivityListener(instance),
+                RoomUserCache(GithubAppDb.getInstance())
+            ),
+            instance.router
         )
     }
 
@@ -39,7 +46,7 @@ class UserListFragment : MvpAppCompatFragment(), UserListView, BackPressedListen
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         return FragmentUserListBinding.inflate(inflater, container, false).also {
             viewBinding = it
