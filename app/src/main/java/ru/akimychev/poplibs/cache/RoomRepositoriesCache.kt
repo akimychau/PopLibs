@@ -7,18 +7,17 @@ import ru.akimychev.poplibs.database.GithubAppDb
 import ru.akimychev.poplibs.database.RoomGithubUserRepos
 import ru.akimychev.poplibs.model.GithubUser
 import ru.akimychev.poplibs.model.GithubUserRepos
-import ru.akimychev.poplibs.network.GithubUserReposDto
 
 class RoomRepositoriesCache(private val db: GithubAppDb) : IRepositoriesCache {
 
     override fun insertReposToDb(
-        githubUserReposDto: List<GithubUserReposDto>,
+        githubUserRepos: List<GithubUserRepos>,
         githubUser: GithubUser,
     ): Completable {
-        return db.reposDao().insertAll(githubUserReposDto.map { userDto ->
-            RoomGithubUserRepos(userDto.id,
-                userDto.name,
-                userDto.forksCount,
+        return db.reposDao().insertAll(githubUserRepos.map { user ->
+            RoomGithubUserRepos(user.id,
+                user.name,
+                user.forksCount,
                 githubUser.id)
         })
     }

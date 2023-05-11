@@ -3,7 +3,6 @@ package ru.akimychev.poplibs.repository.implApi
 import io.reactivex.rxjava3.core.Single
 import ru.akimychev.poplibs.cache.RoomUserCache
 import ru.akimychev.poplibs.core.connectivityListener.NetworkStatus
-import ru.akimychev.poplibs.core.mapper.UserMapper
 import ru.akimychev.poplibs.core.utils.doCompletable
 import ru.akimychev.poplibs.model.GithubUser
 import ru.akimychev.poplibs.network.GithubUserApi
@@ -19,18 +18,13 @@ class UserListRepositoryImpl constructor(
 
         return networkStatus.isOnlineSingle().flatMap { hasConnection ->
             if (hasConnection) {
-                fetchFromApi()
+                githubUserApi.getAllUsers()
+                    .doCompletable {
+                        cache.insertUsersToDb(it)
+                    }
             } else {
                 cache.getUsersFromDb()
             }
         }
-    }
-
-    private fun fetchFromApi(): Single<List<GithubUser>> {
-        return githubUserApi.getAllUsers()
-            .doCompletable {
-                cache.insertUsersToDb(it)
-            }
-            .map { it.map(UserMapper::mapDtoToEntity) }
     }
 }
