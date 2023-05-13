@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
-import ru.akimychev.poplibs.GeekBrainsApp
+import ru.akimychev.poplibs.App
 import ru.akimychev.poplibs.core.BackPressedListener
 import ru.akimychev.poplibs.databinding.FragmentForksCountBinding
 import ru.akimychev.poplibs.model.GithubUserRepos
@@ -26,12 +26,16 @@ class ForksCountFragment : MvpAppCompatFragment(), ForksCountView, BackPressedLi
 
     private lateinit var viewBinding: FragmentForksCountBinding
 
-    private val presenter: ForksCountPresenter by moxyPresenter { ForksCountPresenter(GeekBrainsApp.instance.router) }
+    private val presenter: ForksCountPresenter by moxyPresenter {
+        ForksCountPresenter().apply {
+            App.instance.appComponent.inject(this)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         return FragmentForksCountBinding.inflate(inflater, container, false).also {
             viewBinding = it

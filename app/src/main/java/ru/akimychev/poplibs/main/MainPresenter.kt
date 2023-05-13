@@ -3,10 +3,12 @@ package ru.akimychev.poplibs.main
 import com.github.terrakok.cicerone.Router
 import moxy.MvpPresenter
 import ru.akimychev.poplibs.core.nav.UsersScreen
+import javax.inject.Inject
 
-class MainPresenter(
-    private val router: Router,
-) : MvpPresenter<MainView>() {
+class MainPresenter : MvpPresenter<MainView>() {
+
+    @Inject
+    lateinit var router: Router
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()

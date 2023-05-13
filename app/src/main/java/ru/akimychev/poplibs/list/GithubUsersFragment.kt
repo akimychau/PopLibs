@@ -7,38 +7,28 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
-import ru.akimychev.poplibs.GeekBrainsApp.Companion.instance
-import ru.akimychev.poplibs.cache.RoomUserCache
+import ru.akimychev.poplibs.App
 import ru.akimychev.poplibs.core.BackPressedListener
 import ru.akimychev.poplibs.core.UserListOnItemClick
-import ru.akimychev.poplibs.core.connectivityListener.ConnectivityListener
-import ru.akimychev.poplibs.database.GithubAppDb
 import ru.akimychev.poplibs.databinding.FragmentUserListBinding
 import ru.akimychev.poplibs.model.GithubUser
-import ru.akimychev.poplibs.network.NetworkProvider
-import ru.akimychev.poplibs.repository.implApi.UserListRepositoryImpl
 
-class UserListFragment : MvpAppCompatFragment(), UserListView, BackPressedListener,
+class GithubUsersFragment : MvpAppCompatFragment(), GithubUsersView, BackPressedListener,
     UserListOnItemClick {
 
     companion object {
-        fun getInstance(): UserListFragment {
-            return UserListFragment()
+        fun getInstance(): GithubUsersFragment {
+            return GithubUsersFragment()
         }
     }
 
     private lateinit var viewBinding: FragmentUserListBinding
 
-    private val adapter = UserListAdapter(this)
-    private val presenter: UserListPresenter by moxyPresenter {
-        UserListPresenter(
-            UserListRepositoryImpl(
-                NetworkProvider.githubUserApi,
-                ConnectivityListener(instance),
-                RoomUserCache(GithubAppDb.getInstance())
-            ),
-            instance.router
-        )
+    private val adapter = GithubUsersAdapter(this)
+    private val presenter: GithubUsersPresenter by moxyPresenter {
+        GithubUsersPresenter().apply {
+            App.instance.appComponent.inject(this)
+        }
     }
 
     lateinit var res: String
@@ -78,5 +68,4 @@ class UserListFragment : MvpAppCompatFragment(), UserListView, BackPressedListen
     override fun userListOnItemClick(user: GithubUser) {
         presenter.navigateToDetails(user)
     }
-
 }

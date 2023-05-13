@@ -7,7 +7,7 @@ import ru.akimychev.poplibs.model.GithubUser
 import ru.akimychev.poplibs.model.GithubUserRepos
 
 @StateStrategyType(AddToEndSingleStrategy::class)
-interface UserDetailsView : MvpView {
+interface GithubUserReposView : MvpView {
     fun showLoading()
     fun hideLoading()
     fun initList(list: List<GithubUserRepos>)

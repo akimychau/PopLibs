@@ -10,8 +10,8 @@ import ru.akimychev.poplibs.databinding.ItemUserBinding
 import ru.akimychev.poplibs.core.UserListOnItemClick
 import ru.akimychev.poplibs.model.GithubUser
 
-class UserListAdapter(private val callback: UserListOnItemClick) :
-    RecyclerView.Adapter<UserListAdapter.GithubUserViewHolder>() {
+class GithubUsersAdapter(private val callback: UserListOnItemClick) :
+    RecyclerView.Adapter<GithubUsersAdapter.GithubUserViewHolder>() {
 
     var users: List<GithubUser> = emptyList()
         @SuppressLint("NotifyDataSetChanged")

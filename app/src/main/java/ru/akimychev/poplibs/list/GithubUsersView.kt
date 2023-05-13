@@ -6,7 +6,7 @@ import moxy.viewstate.strategy.StateStrategyType
 import ru.akimychev.poplibs.model.GithubUser
 
 @StateStrategyType(AddToEndSingleStrategy::class)
-interface UserListView : MvpView {
+interface GithubUsersView : MvpView {
     fun initList(list: List<GithubUser>)
     fun showLoading()
     fun hideLoading()

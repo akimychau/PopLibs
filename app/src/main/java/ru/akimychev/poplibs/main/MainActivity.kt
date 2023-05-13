@@ -1,35 +1,47 @@
 package ru.akimychev.poplibs.main
 
 import android.os.Bundle
+import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
-import ru.akimychev.poplibs.GeekBrainsApp
+import ru.akimychev.poplibs.App
 import ru.akimychev.poplibs.R
 import ru.akimychev.poplibs.core.BackPressedListener
 import ru.akimychev.poplibs.databinding.ActivityMainBinding
+import javax.inject.Inject
 
 class MainActivity : MvpAppCompatActivity(), MainView {
 
+    @Inject
+    lateinit var navigatorHolder: NavigatorHolder
+
     private val navigator = AppNavigator(this, R.id.containerMain)
+
     private lateinit var binding: ActivityMainBinding
 
-    private val presenter by moxyPresenter { MainPresenter(GeekBrainsApp.instance.router) }
+    private val presenter by moxyPresenter {
+        MainPresenter().apply {
+            App.instance.appComponent.inject(this)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        App.instance.appComponent.inject(this)
     }
 
     override fun onResumeFragments() {
         super.onResumeFragments()
-        GeekBrainsApp.instance.navigationHolder.setNavigator(navigator)
+        navigatorHolder.setNavigator(navigator)
     }
 
     override fun onPause() {
         super.onPause()
-        GeekBrainsApp.instance.navigationHolder.removeNavigator()
+        navigatorHolder.removeNavigator()
     }
 
     override fun onBackPressed() {

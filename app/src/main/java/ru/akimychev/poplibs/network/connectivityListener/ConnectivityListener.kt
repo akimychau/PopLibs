@@ -1,4 +1,4 @@
-package ru.akimychev.poplibs.core.connectivityListener
+package ru.akimychev.poplibs.network.connectivityListener
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -6,7 +6,7 @@ import android.net.Network
 import android.net.NetworkRequest
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 
-class ConnectivityListener(context: Context) : NetworkStatus {
+class ConnectivityListener(context: Context) : INetworkStatus {
 
     private val statusSubject: BehaviorSubject<Boolean> = BehaviorSubject.create()
 

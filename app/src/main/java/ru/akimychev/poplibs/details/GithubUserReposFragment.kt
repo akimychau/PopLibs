@@ -8,25 +8,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
-import ru.akimychev.poplibs.GeekBrainsApp
-import ru.akimychev.poplibs.cache.RoomRepositoriesCache
+import ru.akimychev.poplibs.App
 import ru.akimychev.poplibs.core.BackPressedListener
 import ru.akimychev.poplibs.core.UserDetailsOnItemClick
-import ru.akimychev.poplibs.core.connectivityListener.ConnectivityListener
-import ru.akimychev.poplibs.database.GithubAppDb
 import ru.akimychev.poplibs.databinding.FragmentUserDetailsBinding
 import ru.akimychev.poplibs.model.GithubUser
 import ru.akimychev.poplibs.model.GithubUserRepos
-import ru.akimychev.poplibs.network.NetworkProvider
-import ru.akimychev.poplibs.repository.implApi.UserDetailsRepositoryImpl
 
-class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, BackPressedListener,
+class GithubUserReposFragment : MvpAppCompatFragment(), GithubUserReposView, BackPressedListener,
     UserDetailsOnItemClick {
 
     companion object {
         const val BUNDLE_GITHUB_USER = "BUNDLE_GITHUB_USER"
-        fun getInstance(user: GithubUser): UserDetailsFragment {
-            return UserDetailsFragment().apply {
+        fun getInstance(user: GithubUser): GithubUserReposFragment {
+            return GithubUserReposFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(BUNDLE_GITHUB_USER, user)
                 }
@@ -35,15 +30,10 @@ class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, BackPressed
     }
 
     private lateinit var viewBinding: FragmentUserDetailsBinding
-    private val adapter = UserDetailsAdapter(this)
+    private val adapter = GithubUserReposAdapter(this)
 
-    private val presenter: UserDetailsPresenter by moxyPresenter {
-        UserDetailsPresenter(
-            GeekBrainsApp.instance.router,
-            UserDetailsRepositoryImpl(NetworkProvider.githubUserReposApi,
-                ConnectivityListener(GeekBrainsApp.instance),
-                RoomRepositoriesCache(GithubAppDb.getInstance()))
-        )
+    private val presenter: GithubUserReposPresenter by moxyPresenter {
+        GithubUserReposPresenter().apply { App.instance.appComponent.inject(this) }
     }
 
     override fun onCreateView(
@@ -75,7 +65,6 @@ class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, BackPressed
         viewBinding.userAvatar.load(user.avatarUrl)
         viewBinding.userLogin.text = user.login
     }
-
 
     override fun showLoading() {
         viewBinding.progressBar.visibility = View.VISIBLE

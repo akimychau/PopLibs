@@ -8,7 +8,7 @@ import ru.akimychev.poplibs.database.RoomGithubUserRepos
 import ru.akimychev.poplibs.model.GithubUser
 import ru.akimychev.poplibs.model.GithubUserRepos
 
-class RoomRepositoriesCache(private val db: GithubAppDb) : IRepositoriesCache {
+class RoomReposCache(private val db: GithubAppDb) : IReposCache {
 
     override fun insertReposToDb(
         githubUserRepos: List<GithubUserRepos>,

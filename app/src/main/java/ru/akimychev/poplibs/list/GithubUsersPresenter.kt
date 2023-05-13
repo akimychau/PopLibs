@@ -5,23 +5,25 @@ import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import moxy.MvpPresenter
 import ru.akimychev.poplibs.core.nav.UsersDetailsScreen
-import ru.akimychev.poplibs.model.GithubUser
-import ru.akimychev.poplibs.repository.UserListRepository
 import ru.akimychev.poplibs.core.utils.disposeBy
 import ru.akimychev.poplibs.core.utils.subscribeByDefault
+import ru.akimychev.poplibs.model.GithubUser
+import ru.akimychev.poplibs.repository.IGithubUsersRepository
+import javax.inject.Inject
 
-class UserListPresenter(
-    private val userListRepository: UserListRepository,
-    private val router: Router
-) : MvpPresenter<UserListView>() {
+class GithubUsersPresenter : MvpPresenter<GithubUsersView>() {
+
+    @Inject
+    lateinit var usersRepository: IGithubUsersRepository
+    @Inject
+    lateinit var router: Router
 
     private val bag = CompositeDisposable()
-
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         viewState.showLoading()
-        userListRepository.getUsers()
+        usersRepository.getUsers()
             .subscribeByDefault()
             .subscribe(
                 {

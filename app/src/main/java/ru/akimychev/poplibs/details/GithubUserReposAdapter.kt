@@ -8,8 +8,8 @@ import ru.akimychev.poplibs.core.UserDetailsOnItemClick
 import ru.akimychev.poplibs.databinding.ItemReposBinding
 import ru.akimychev.poplibs.model.GithubUserRepos
 
-class UserDetailsAdapter(private val callback: UserDetailsOnItemClick) :
-    RecyclerView.Adapter<UserDetailsAdapter.ReposListViewHolder>() {
+class GithubUserReposAdapter(private val callback: UserDetailsOnItemClick) :
+    RecyclerView.Adapter<GithubUserReposAdapter.ReposListViewHolder>() {
 
     var githubUserReposList: List<GithubUserRepos> = emptyList()
         @SuppressLint("NotifyDataSetChanged")
