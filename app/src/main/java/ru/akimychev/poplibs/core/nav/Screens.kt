@@ -3,11 +3,11 @@ package ru.akimychev.poplibs.core.nav
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
 import com.github.terrakok.cicerone.androidx.FragmentScreen
-import ru.akimychev.poplibs.details.GithubUserReposFragment
-import ru.akimychev.poplibs.forksCount.ForksCountFragment
-import ru.akimychev.poplibs.list.GithubUsersFragment
-import ru.akimychev.poplibs.model.GithubUser
-import ru.akimychev.poplibs.model.GithubUserRepos
+import ru.akimychev.poplibs.view.repos.GithubUserReposFragment
+import ru.akimychev.poplibs.view.forkscount.ForksCountFragment
+import ru.akimychev.poplibs.view.users.GithubUsersFragment
+import ru.akimychev.poplibs.model.entities.GithubUser
+import ru.akimychev.poplibs.model.entities.GithubUserRepos
 
 object UsersScreen : FragmentScreen {
     override fun createFragment(factory: FragmentFactory): Fragment {

@@ -1,9 +1,9 @@
 package ru.akimychev.poplibs.core.mapper
 
-import ru.akimychev.poplibs.database.RoomGithubUser
-import ru.akimychev.poplibs.database.RoomGithubUserRepos
-import ru.akimychev.poplibs.model.GithubUser
-import ru.akimychev.poplibs.model.GithubUserRepos
+import ru.akimychev.poplibs.model.entities.room.RoomGithubUser
+import ru.akimychev.poplibs.model.entities.room.RoomGithubUserRepos
+import ru.akimychev.poplibs.model.entities.GithubUser
+import ru.akimychev.poplibs.model.entities.GithubUserRepos
 
 object RepoMapper {
 

@@ -11,9 +11,9 @@ import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.akimychev.poplibs.App
 import ru.akimychev.poplibs.BuildConfig
-import ru.akimychev.poplibs.network.connectivityListener.ConnectivityListener
-import ru.akimychev.poplibs.network.connectivityListener.INetworkStatus
-import ru.akimychev.poplibs.network.IDataSource
+import ru.akimychev.poplibs.model.network.connectivityListener.ConnectivityListener
+import ru.akimychev.poplibs.model.network.connectivityListener.INetworkStatus
+import ru.akimychev.poplibs.model.network.IDataSource
 import javax.inject.Named
 import javax.inject.Singleton
 

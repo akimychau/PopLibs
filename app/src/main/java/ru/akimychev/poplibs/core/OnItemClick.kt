@@ -1,7 +1,7 @@
 package ru.akimychev.poplibs.core
 
-import ru.akimychev.poplibs.model.GithubUser
-import ru.akimychev.poplibs.model.GithubUserRepos
+import ru.akimychev.poplibs.model.entities.GithubUser
+import ru.akimychev.poplibs.model.entities.GithubUserRepos
 
 fun interface UserListOnItemClick {
     fun userListOnItemClick(user: GithubUser)

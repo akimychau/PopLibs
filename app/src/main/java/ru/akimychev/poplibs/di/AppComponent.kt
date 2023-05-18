@@ -1,12 +1,13 @@
 package ru.akimychev.poplibs.di
 
 import dagger.Component
-import ru.akimychev.poplibs.details.GithubUserReposPresenter
-import ru.akimychev.poplibs.di.modules.*
-import ru.akimychev.poplibs.forksCount.ForksCountPresenter
-import ru.akimychev.poplibs.list.GithubUsersPresenter
-import ru.akimychev.poplibs.main.MainActivity
-import ru.akimychev.poplibs.main.MainPresenter
+import ru.akimychev.poplibs.di.modules.ApiModule
+import ru.akimychev.poplibs.di.modules.AppModule
+import ru.akimychev.poplibs.di.modules.CiceroneModule
+import ru.akimychev.poplibs.di.modules.DatabaseModule
+import ru.akimychev.poplibs.di.user.UserSubComponent
+import ru.akimychev.poplibs.view.main.MainActivity
+import ru.akimychev.poplibs.presenter.MainPresenter
 import javax.inject.Singleton
 
 @Singleton
@@ -15,14 +16,12 @@ import javax.inject.Singleton
         ApiModule::class,
         AppModule::class,
         CiceroneModule::class,
-        DatabaseModule::class,
-        RepositoriesModule::class
+        DatabaseModule::class
     ]
 )
 interface AppComponent {
+    fun userSubComponent(): UserSubComponent
+
     fun inject(mainActivity: MainActivity)
     fun inject(mainPresenter: MainPresenter)
-    fun inject(githubUsersPresenter: GithubUsersPresenter)
-    fun inject(githubUserReposPresenter: GithubUserReposPresenter)
-    fun inject(forksCountPresenter: ForksCountPresenter)
 }
